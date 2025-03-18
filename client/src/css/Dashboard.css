@@ -1,0 +1,46 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1c1c3c, #2a4f7f); /* Mor yerine mavimsi tonlar */
+  height: 100vh;
+  padding: 20px;
+  color: white;
+}
+
+.dashboard-box {
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  height: 100px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-box:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dashboard-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+  transform: rotate(25deg);
+  opacity: 0.2;
+}
