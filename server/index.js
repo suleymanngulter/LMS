@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { Connection } from './db.js'
-import { AdminRouter } from './routes/auth.js'
+import { AuthRouter } from './routes/auth.js'
 import { studentRouter } from './routes/student.js'
 import { bookRouter } from './routes/book.js'
 import { Book } from './models/Book.js'
@@ -15,9 +15,10 @@ const app = express()
 //middleware
 app.use(express.json())
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'], // ✅ 5174 eklendi
     credentials: true
-}))
+  }));
+  
 app.use(cookieParser())
 
 
@@ -26,7 +27,7 @@ dotenv.config()
 Connection()
 
 
-app.use('/auth', AdminRouter)
+app.use('/auth', AuthRouter)
 app.use('/student', studentRouter)
 app.use('/book', bookRouter)
 
