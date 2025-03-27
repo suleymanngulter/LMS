@@ -17,7 +17,7 @@ router.post('/add', verifyAdmin, async (req, res) => {
 });
 
 // 📌 /book → Tüm kitapları getir
-router.get('/', async (req, res) => {
+router.get('/books', async (req, res) => {
   try {
     const books = await Book.find();
     return res.json(books);
