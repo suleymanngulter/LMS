@@ -74,6 +74,37 @@ router.get('/likes', verifyUser, async (req, res) => {
   }
 });
 
+// ✅ Kitap beğenisini geri alma (unlike)
+router.post('/unlike', verifyUser, async (req, res) => {
+  const { bookId } = req.body;
+  const roll = req.username;
+
+  if (!mongoose.Types.ObjectId.isValid(bookId)) {
+    return res.status(400).json({ message: "Geçersiz kitap ID" });
+  }
+
+  try {
+    const bookExists = await Book.findById(bookId);
+    if (!bookExists) {
+      return res.status(404).json({ message: "Kitap bulunamadı." });
+    }
+
+    const result = await Student.updateOne(
+      { roll },
+      { $pull: { liked_books: new mongoose.Types.ObjectId(bookId) } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Beğeni bulunamadı veya kullanıcı yok." });
+    }
+
+    return res.json({ message: "Kitap beğenilerden çıkarıldı." });
+
+  } catch (err) {
+    return res.status(500).json({ message: "Sunucu hatası", error: err.message });
+  }
+});
+
 
 // ✅ Kitap puanlama (⭐️ yeni eklenen endpoint)
 router.post('/rate', verifyUser, async (req, res) => {
