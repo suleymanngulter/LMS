@@ -1,1 +1,7 @@
 PyJWT
+streamlit
+pandas
+numpy
+scikit-learn
+pymongo
+python-dotenv
