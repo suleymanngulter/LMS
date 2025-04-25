@@ -1,0 +1,54 @@
+.liked-books-page {
+    background-color: #e6f0ff;
+    min-height: 100vh;
+    padding: 40px;
+    color: #003366;
+  }
+  
+  .liked-books-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .liked-books-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .liked-book-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    width: 220px;
+    text-align: center;
+  }
+  
+  .liked-book-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .liked-book-info {
+    margin-top: 15px;
+  }
+  
+  .liked-book-info button {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .liked-book-info button:hover {
+    background-color: #005fa3;
+  }
+  

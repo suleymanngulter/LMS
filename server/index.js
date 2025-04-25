@@ -10,27 +10,27 @@ import { Book } from './models/Book.js'
 import { Student } from './models/Student.js'
 import { Admin } from './models/Admin.js'
 
-const app = express()
+const app = express();
 
 //middleware
-app.use(express.json())
+app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: 'http://localhost:5173',
     credentials: true
   }));
   
   
-app.use(cookieParser())
+app.use(cookieParser());
 
 
-dotenv.config()
+dotenv.config();
 
-Connection()
+Connection();
 
 
-app.use('/auth', AuthRouter)
-app.use('/student', studentRouter)
-app.use('/book', bookRouter)
+app.use('/auth', AuthRouter);
+app.use('/student', studentRouter);
+app.use('/book', bookRouter);
 
 
 app.get('/dashboard', async (req, res) => {
@@ -42,9 +42,9 @@ app.get('/dashboard', async (req, res) => {
     } catch (err) {
         return res.json(err)
     }
-})
+});
 
 
 app.listen(process.env.PORT, () => {
     console.log("server çalışıyor")
-})
+});

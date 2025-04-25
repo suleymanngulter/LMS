@@ -1,6 +1,7 @@
 import express from 'express';
 import { Book } from '../models/Book.js';
 import { verifyAdmin, verifyUser } from './auth.js';
+import { Student } from '../models/Student.js';
 
 const router = express.Router();
 
@@ -136,6 +137,26 @@ router.get('/:id/status', async (req, res) => {
 
   } catch (err) {
     return res.status(500).json({ error: "Durum sorgulanamadı", details: err.message });
+  }
+});
+
+// Ortalama puanı getir
+router.get('/:id/average-rating', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const students = await Student.find({ [`ratings.${id}`]: { $exists: true } });
+
+    if (students.length === 0) {
+      return res.json({ averageRating: 0 });
+    }
+
+    const total = students.reduce((sum, student) => sum + student.ratings[id], 0);
+    const average = total / students.length;
+
+    return res.json({ averageRating: average });
+  } catch (err) {
+    return res.status(500).json({ message: "Sunucu hatası", error: err.message });
   }
 });
 

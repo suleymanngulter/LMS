@@ -61,14 +61,19 @@ router.post('/login', async (req, res) => {
 // ✅ Middleware: verifyUser (admin veya student)
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
+
   if (!token) {
+    console.log("🔒 Token yok (cookie gönderilmemiş).");
     return res.status(401).json({ message: "Oturum bulunamadı" });
   }
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
+      console.log("❌ Token geçersiz:", err.message);
       return res.status(403).json({ message: "Geçersiz token" });
     }
+
+    console.log("✅ Token doğrulandı:", decoded);
     req.username = decoded.username;
     req.role = decoded.role;
     next();
