@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Login.css'; 
@@ -9,19 +9,28 @@ const Login = ({ setRoleVar }) => {
   const [role, setRole] = useState('admin');
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true; 
+  axios.defaults.withCredentials = true;
+
+  // Giriş sayfası açıldığında eski token'ı temizle
+  useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
 
   const handleSubmit = () => {
     axios.post('http://localhost:3001/auth/login', { username, password, role })
       .then(res => {
-        console.log("Gelen cevap:", res); 
+        console.log("Gelen cevap:", res);
 
-        if (res.data.login && res.data.role === 'admin') {
-          setRoleVar('admin');
-          navigate('/dashboard'); 
-        } else if (res.data.login && res.data.role === 'student') {
-          setRoleVar('student');
-          navigate('/'); 
+        if (res.data.login) {
+          // ✅ TOKEN BURAYA EKLENDİ
+          localStorage.setItem("token", res.data.token);
+          setRoleVar(res.data.role);
+
+          if (res.data.role === 'admin') {
+            navigate('/dashboard');
+          } else if (res.data.role === 'student') {
+            navigate('/');
+          }
         }
       })
       .catch(err => {
@@ -64,6 +73,6 @@ const Login = ({ setRoleVar }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

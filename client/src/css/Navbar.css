@@ -32,11 +32,32 @@
 }
 
 .navbar-link {
-    color: #fff;
-    text-decoration: none;
+    all: unset;                  /* tarayıcı varsayılanlarını sıfırla */
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
     margin-left: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    line-height: 1;
+    display: inline-block;
 }
 
 .navbar-link:hover {
     text-decoration: underline;
 }
+.navbar-link {
+    all: unset; /* Tarayıcının verdiği farkları sıfırlar */
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: inherit; /* Sayfadaki fontu kullan */
+    margin-left: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    display: inline-block;
+  }
+  
+  

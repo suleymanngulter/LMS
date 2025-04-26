@@ -9,6 +9,29 @@ const Navbar = ({role}) => {
             <Link to="/" className='navbar-brand'>Kitap Mağazası</Link>
         </div>
         <div className='navbar-right'>
+
+            {role === "student" && <>
+              <Link to="/LikedBooks" className="navbar-link">Beğendiğim Kitaplar</Link>
+              
+            
+
+            <buton className="navbar-link"style={{background:'none',border:'none' }}
+            onClick={()=>{
+              const token = localStorage.getItem("token");
+              if (token) {
+                const redirectUrl = 'http://localhost:8501?token=${token}';
+                window.location.href = redirectUrl;
+              }else{
+                alert("Önce giriş yapman gerekiyor.");
+              }
+            }} 
+            
+            >Kitap Öneri
+            </buton>
+            </>
+            }
+
+
             <Link to="/books" className='navbar-link'>Kitaplar</Link>
             {role === "admin" && <>
               <Link to="/addbook" className="navbar-link">Kitap Ekle</Link>

@@ -11,6 +11,8 @@ import axios from "axios"
 import AddBook from "./components/AddBook"
 import EditBook from "./components/EditBook"
 import DeleteBook from "./components/DeleteBook"
+import LikedBooks from "./components/LikedBooks";
+
 
 function App() {
   const [role, setRole] = useState('')
@@ -40,6 +42,7 @@ function App() {
         <Route path="/addbook" element={<AddBook />}></Route>
         <Route path="/book/:id" element={<EditBook />}></Route>
         <Route path="/delete/:id" element={<DeleteBook />}></Route>
+        <Route path="/LikedBooks" element={<LikedBooks />} />
       </Routes>
     </BrowserRouter>
   );
