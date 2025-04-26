@@ -1,7 +1,9 @@
+// src/components/LikedBooks.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BookCard from "../components/BookCard";
+import BookCard from "./BookCard";
 import { Link } from "react-router-dom";
+import "../css/LikedBooks.css";
 
 const LikedBooks = () => {
   const [books, setBooks] = useState([]);
@@ -16,7 +18,7 @@ const LikedBooks = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setBooks(res.data.likedBooks || []);
+        setBooks(res.data.liked_books || []);
       } catch (err) {
         console.error("Beğenilen kitaplar alınamadı:", err);
         setBooks([]);
@@ -29,19 +31,11 @@ const LikedBooks = () => {
   }, []);
 
   return (
-    <div
-      className="books-page"
-      style={{
-        backgroundColor: "#0e2a51",
-        minHeight: "100vh",
-        padding: "40px",
-        color: "white",
-      }}
-    >
-      <h2 style={{ marginBottom: "20px" }}>Beğendiğim Kitaplar</h2>
+    <div className="books-page">
+      <h2>Beğendiğim Kitaplar</h2>
 
       {loading ? (
-        <p style={{ color: "#ccc" }}>Yükleniyor...</p>
+        <p className="loading-text">Yükleniyor...</p>
       ) : books.length > 0 ? (
         <div className="books-container">
           {books.map((book) => (
@@ -49,18 +43,10 @@ const LikedBooks = () => {
           ))}
         </div>
       ) : (
-        <div style={{ marginTop: "80px", textAlign: "left" }}>
-          <p
-            style={{
-              fontSize: "18px",
-              fontWeight: "normal",
-              marginBottom: "10px",
-            }}
-          >
-            Henüz beğendiğiniz bir kitap yok.
-          </p>
-          <Link to="/books" style={{ fontSize: "14px", color: "#ffd700" }}>
-            Kitaplara göz atmak için buraya tıklayın →
+        <div className="no-books">
+          <p>Henüz beğendiğiniz bir kitap yok.</p>
+          <Link to="/books" className="books-link">
+            Kitaplara göz atmak için tıklayın →
           </Link>
         </div>
       )}
