@@ -5,8 +5,9 @@ const BookCard = ({ book, role }) => {
   const { name, author, imageUrl } = book;
 
   return (
-    <div className="book-card">
-      <Link to={`/details/${book._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+    <div className="book-card-wrapper">
+      {/* Kartın tamamı tıklanabilir olacak şekilde Link */}
+      <Link to={`/bookdetail/${book._id}`} className="book-card" style={{ textDecoration: "none", color: "inherit" }}>
         <img src={imageUrl} alt={name} className="book-image" />
         <div className="book-details">
           <h3 className="book-title">{name}</h3>
@@ -14,6 +15,7 @@ const BookCard = ({ book, role }) => {
         </div>
       </Link>
 
+      {/* Admin yetkisi varsa butonlar ayrı dursun */}
       {role === "admin" && (
         <div className="book-actions">
           <button>

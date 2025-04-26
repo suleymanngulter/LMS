@@ -12,6 +12,7 @@ import AddBook from "./components/AddBook"
 import EditBook from "./components/EditBook"
 import DeleteBook from "./components/DeleteBook"
 import LikedBooks from "./components/LikedBooks";
+import BookDetails from "./components/BookDetail";
 
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
         <Route path="/book/:id" element={<EditBook />}></Route>
         <Route path="/delete/:id" element={<DeleteBook />}></Route>
         <Route path="/LikedBooks" element={<LikedBooks />} />
+        <Route path="/bookdetail/:id" element={<BookDetails role={role} />} />
+ {/* Kitap Detay sayfası */}
       </Routes>
     </BrowserRouter>
   );

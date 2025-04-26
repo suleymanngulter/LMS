@@ -1,0 +1,99 @@
+.book-details-page {
+    background-color: #e6f0ff;
+    min-height: 100vh;
+    padding: 40px;
+    color: #003366;
+  }
+  
+  .book-details-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .book-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: linear-gradient(135deg, #1c1c3c, #2a4f7f);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    max-width: 1100px;
+    margin: 0 auto;
+    color: white;
+  }
+  
+  .book-image {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .book-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 700px;
+  }
+  
+  .book-name {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .book-author {
+    font-size: 22px;
+    font-style: italic;
+  }
+  
+  .book-description {
+    font-size: 18px;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .like-button {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .like-button.liked {
+    background-color: #cc0000; /* Beğenildiyse kırmızı */
+  }
+  
+  .like-button:hover {
+    background-color: #005fa3;
+  }
+  
+  .rating-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .rating-buttons button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .rating-buttons button:hover {
+    background-color: #e6b800;
+  }
