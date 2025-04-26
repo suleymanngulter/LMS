@@ -19,7 +19,7 @@ const Navbar = ({role}) => {
             onClick={()=>{
               const token = localStorage.getItem("token");
               if (token) {
-                const redirectUrl = 'http://localhost:8501?token=${token}';
+                const redirectUrl = `http://localhost:8501?token=${token}`;
                 window.location.href = redirectUrl;
               }else{
                 alert("Önce giriş yapman gerekiyor.");

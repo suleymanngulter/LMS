@@ -62,17 +62,17 @@ router.get('/likes', verifyUser, async (req, res) => {
   const roll = req.username;
 
   try {
-    const student = await Student.findOne({ roll });
+    const student = await Student.findOne({ roll }).populate('liked_books'); // <== EKLEDİK
     if (!student) {
       return res.status(404).json({ message: "Kullanıcı bulunamadı." });
     }
 
-    return res.json({ liked_books: student.liked_books || [] });
-
+    return res.json({ likedBooks: student.liked_books || [] }); // küçük değişim: liked_books → likedBooks
   } catch (err) {
     return res.status(500).json({ message: "Sunucu hatası", error: err.message });
   }
 });
+
 
 // ✅ Kitap beğenisini geri alma (unlike)
 router.post('/unlike', verifyUser, async (req, res) => {
