@@ -57,21 +57,22 @@ router.post('/like', verifyUser, async (req, res) => {
 });
 
 
-// ✅ Beğenilen kitapları getir
 router.get('/likes', verifyUser, async (req, res) => {
   const roll = req.username;
 
   try {
-    const student = await Student.findOne({ roll }).populate('liked_books'); // <== EKLEDİK
+    const student = await Student.findOne({ roll }).populate('liked_books');
     if (!student) {
       return res.status(404).json({ message: "Kullanıcı bulunamadı." });
     }
 
-    return res.json({ likedBooks: student.liked_books || [] }); // küçük değişim: liked_books → likedBooks
+    return res.json({ likedBooks: student.liked_books || [] });
   } catch (err) {
     return res.status(500).json({ message: "Sunucu hatası", error: err.message });
   }
 });
+
+
 
 
 // ✅ Kitap beğenisini geri alma (unlike)
