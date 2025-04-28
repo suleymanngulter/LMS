@@ -7,7 +7,7 @@ const BookCard = ({ book, role }) => {
 
   return (
     <div className={`book-card-wrapper ${role === "admin" ? "admin-mode" : ""}`}>
-      {/* Admin kullanıcıları için kitap detayına yönlendirme kaldırıldı */}
+      {}
       {role !== "admin" ? (
         <Link to={`/bookdetail/${book._id}`} className="book-card" style={{ textDecoration: "none", color: "inherit" }}>
           <img src={imageUrl} alt={name} className="book-image" />

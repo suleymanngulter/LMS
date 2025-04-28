@@ -6,7 +6,7 @@ const Navbar = ({role}) => {
   return (
     <nav className='navbar'>
         <div className='navbar-left'>
-            <Link to="/" className='navbar-brand'>Kitap Mağazası</Link>
+            <Link to="/" className='navbar-brand'>Kütüphane Otomasyonu</Link>
         </div>
         <div className='navbar-right'>
 

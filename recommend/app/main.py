@@ -7,7 +7,7 @@ from recommender.hybrid import HybridRecommender
 st.set_page_config(page_title="📚 Kitap Öneri Sistemi", layout="centered")
 st.title("📚 Kitap Öneri Sistemi")
 
-# 🔐 JWT Token kontrolü
+
 query_params = st.query_params
 token = query_params.get("token", None)
 
@@ -23,10 +23,10 @@ if not user_info:
 username = user_info.get("username")
 st.success(f"👋 Hoş geldin, **{username}**!")
 
-# 📘 Kullanıcının beğendiği kitapları al
+
 liked_book_ids = get_user_liked_book_ids(username)
 
-# ✅ Hiç kitap beğenmemişse alternatif akış
+
 if not liked_book_ids:
     st.info("Henüz beğendiğin kitap yok. Aşağıdan bir kitap seçerek öneri alabilirsin.")
 
@@ -61,7 +61,7 @@ if not liked_book_ids:
 
     st.stop()
 
-# 🔹 Hibrit öneri modeli kullanılır
+
 ratings_input = {
     str(book_id): {"roll": username, "rating": 4} for book_id in liked_book_ids
 }
@@ -95,7 +95,7 @@ if not recommendations:
                 continue
             recommendations.append(match.iloc[0].to_dict())
 
-# 📝 Sonuçları göster
+
 if recommendations:
     st.subheader("📖 Sana Önerilen Kitaplar")
     for i, rec in enumerate(recommendations, 1):

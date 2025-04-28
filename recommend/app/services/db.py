@@ -3,8 +3,8 @@ import pandas as pd
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-# ✅ Doğru .env dosyasını oku
-# env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env')
+
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env')
 load_dotenv(dotenv_path=env_path)
 
 MONGO_URI = os.getenv("MONGO_URI")

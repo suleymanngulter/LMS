@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET; // .env'den alınacak tek secret key
+const JWT_SECRET = process.env.JWT_SECRET; 
 
-// 🔐 Login route
+
 router.post('/login', async (req, res) => {
   try {
     const { username, password, role } = req.body;
@@ -30,9 +30,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: "Yanlış şifre" });
     }
 
-    // Tek key ile token oluştur
+    
     const token = jwt.sign(
-      { username: user.username, role }, // 👈 rol doğrudan payload’da
+      { username: user.username, role }, 
       JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// ✅ Middleware: verifyUser (admin veya student)
+
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -75,7 +75,7 @@ const verifyUser = (req, res, next) => {
   });
 };
 
-// ✅ Middleware: verifyAdmin (rol kontrolü)
+
 const verifyAdmin = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -92,16 +92,16 @@ const verifyAdmin = (req, res, next) => {
   });
 };
 
-// 🔍 Oturum kontrolü
+
 router.get('/verify', verifyUser, (req, res) => {
   return res.json({ login: true, role: req.role });
 });
 
-// 🚪 Logout
+
 router.get('/logout', (req, res) => {
   res.clearCookie('token');
   return res.json({ logout: true });
 });
 
-// Export
+
 export { router as AuthRouter, verifyAdmin, verifyUser };

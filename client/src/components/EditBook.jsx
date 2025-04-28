@@ -17,17 +17,17 @@ const EditBook = () => {
           setImageUrl(res.data.imageUrl);
         })
         .catch(err => console.log(err));
-    }, [id]); // Burada id'yi bağımlılık olarak ekliyoruz
+    }, [id]); 
   
-    // Formu submit ederken yapılacak işlemi handleSubmit ile ayarlıyoruz
+   
     const handleSubmit = (e) => {
       e.preventDefault();
   
-      // PUT isteğiyle kitabı güncelliyoruz
+      
       axios.put(`http://localhost:3001/book/${id}`, { name, author, imageUrl })
         .then(res => {
           if (res.data.updated) {
-            navigate('/books'); // Güncelleme başarılıysa kitaplar sayfasına yönlendir
+            navigate('/books'); 
           }
         })
         .catch(err => console.log(err));

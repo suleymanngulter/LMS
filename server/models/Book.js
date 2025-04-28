@@ -8,9 +8,9 @@ const bookSchema = new mongoose.Schema({
   imageUrl: { type: String , required: true},
   similarityText: { type: String, required: true },
   
-  // 🔽 Önerilen yeni alanlar:
-  status: { type: String, default: "available"}, // 'available' | 'borrowed'
-  borrowedBy: { type: String, default: null },    // öğrenci username veya roll
+  
+  status: { type: String, default: "available"}, 
+  borrowedBy: { type: String, default: null },    
   borrowedAt: { type: Date, default: null },
   returnDue: { type: Date, default: null }
 

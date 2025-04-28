@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
-// ✅ Öğrenci kayıt (zaten vardı)
+
 router.post('/register', async (req, res) => {
   try {
     const { username, password, roll } = req.body;
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
 });
 
 
-// ✅ Kitap beğenme
+
 router.post('/like', verifyUser, async (req, res) => {
   const { bookId } = req.body;
   const roll = req.username;
@@ -75,7 +75,7 @@ router.get('/likes', verifyUser, async (req, res) => {
 
 
 
-// ✅ Kitap beğenisini geri alma (unlike)
+
 router.post('/unlike', verifyUser, async (req, res) => {
   const { bookId } = req.body;
   const roll = req.username;
@@ -107,7 +107,7 @@ router.post('/unlike', verifyUser, async (req, res) => {
 });
 
 
-// ✅ Kitap puanlama (⭐️ yeni eklenen endpoint)
+
 router.post('/rate', verifyUser, async (req, res) => {
   const { bookId, rating } = req.body;
   const roll = req.username;

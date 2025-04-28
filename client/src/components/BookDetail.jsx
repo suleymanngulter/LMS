@@ -8,13 +8,14 @@ const BookDetails = () => {
   const [book, setBook] = useState(null);
   const [liked, setLiked] = useState(false);
   const [averageRating, setAverageRating] = useState(null);
-  const [hoveredStar, setHoveredStar] = useState(null); 
+  const [bookStatus, setBookStatus] = useState("available");
 
   useEffect(() => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/book/${id}`);
         setBook(response.data);
+        setBookStatus(response.data.status);
       } catch (error) {
         console.error("Kitap verisi alınamadı:", error);
       }
@@ -22,21 +23,16 @@ const BookDetails = () => {
 
     const fetchLikedStatus = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/student/likes', {
+        const response = await axios.get("http://localhost:3001/student/likes", {
           withCredentials: true,
         });
-    
-        const likedBooks = response.data.likedBooks; // ✅ Düzeltildi
-    
-        if (Array.isArray(likedBooks) && likedBooks.some(book => book._id === id)) {
-          setLiked(true);
-        }
+
+        const likedBooks = response.data.likedBooks;
+        setLiked(likedBooks.some((likedBook) => likedBook._id === id));
       } catch (error) {
         console.error("Beğeni durumu alınamadı:", error);
       }
     };
-    
-    
 
     const fetchAverageRating = async () => {
       try {
@@ -55,10 +51,10 @@ const BookDetails = () => {
   const handleLike = async () => {
     try {
       if (liked) {
-        await axios.post('http://localhost:3001/student/unlike', { bookId: id }, { withCredentials: true });
+        await axios.post("http://localhost:3001/student/unlike", { bookId: id }, { withCredentials: true });
         setLiked(false);
       } else {
-        await axios.post('http://localhost:3001/student/like', { bookId: id }, { withCredentials: true });
+        await axios.post("http://localhost:3001/student/like", { bookId: id }, { withCredentials: true });
         setLiked(true);
       }
     } catch (error) {
@@ -68,11 +64,29 @@ const BookDetails = () => {
 
   const handleRating = async (newRating) => {
     try {
-      await axios.post('http://localhost:3001/student/rate', { bookId: id, rating: newRating }, { withCredentials: true });
+      await axios.post("http://localhost:3001/student/rate", { bookId: id, rating: newRating }, { withCredentials: true });
       const updatedRating = await axios.get(`http://localhost:3001/book/${id}/average-rating`);
       setAverageRating(updatedRating.data.averageRating);
     } catch (error) {
       console.error("Puanlama işlemi başarısız:", error);
+    }
+  };
+
+  const handleBorrow = async () => {
+    try {
+      await axios.post(`http://localhost:3001/book/${id}/borrow`, {}, { withCredentials: true });
+      setBookStatus("borrowed");
+    } catch (error) {
+      console.error("Ödünç alma işlemi başarısız:", error);
+    }
+  };
+
+  const handleReturn = async () => {
+    try {
+      await axios.post(`http://localhost:3001/book/${id}/return`, {}, { withCredentials: true });
+      setBookStatus("available");
+    } catch (error) {
+      console.error("İade işlemi başarısız:", error);
     }
   };
 
@@ -86,7 +100,6 @@ const BookDetails = () => {
 
       <div className="book-info">
         <img src={book.imageUrl} alt={book.name} className="book-image" />
-
         <div className="book-text">
           <h2 className="book-name">{book.name}</h2>
           <h3 className="book-author">{book.author}</h3>
@@ -94,7 +107,7 @@ const BookDetails = () => {
           
           <p>
             <strong>Durum:</strong> 
-            {book.status === "available" ? (
+            {bookStatus === "available" ? (
               <span style={{ color: "lightgreen" }}> Rafta</span>
             ) : (
               <span style={{ color: "lightcoral" }}> Ödünç Alınmış</span>
@@ -103,8 +116,10 @@ const BookDetails = () => {
 
           <p>
             <strong>İade Tarihi:</strong>
-            {book.status === "borrowed" ? (
-              <span style={{ color: "orange" }}>{new Date(book.returnDue).toLocaleDateString("tr-TR")}</span>
+            {bookStatus === "borrowed" ? (
+              <span style={{ color: "lightgreen" }}>
+                {new Date(book.returnDue).toLocaleDateString("tr-TR")}
+              </span>
             ) : (
               <span style={{ color: "gray" }}> - </span>
             )}
@@ -114,13 +129,24 @@ const BookDetails = () => {
             {liked ? "Beğeniyi Geri Al" : "Beğen"}
           </button>
 
+          {}
+          {bookStatus === "available" && (
+            <button className="borrow-button" onClick={handleBorrow}>
+              Ödünç Al
+            </button>
+          )}
+
+          {bookStatus === "borrowed" && (
+            <button className="return-button" onClick={handleReturn}>
+              İade Et
+            </button>
+          )}
+
           <div className="rating-stars">
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}
-                className={`star ${hoveredStar >= star ? "hovered" : ""}`}
-                onMouseEnter={() => setHoveredStar(star)}
-                onMouseLeave={() => setHoveredStar(null)}
+                className={`star`}
                 onClick={() => handleRating(star)}
               >
                 ⭐

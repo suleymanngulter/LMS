@@ -11,7 +11,7 @@ const Login = ({ setRoleVar }) => {
 
   axios.defaults.withCredentials = true;
 
-  // Giriş sayfası açıldığında eski token'ı temizle
+  
   useEffect(() => {
     localStorage.removeItem("token");
   }, []);
@@ -22,7 +22,7 @@ const Login = ({ setRoleVar }) => {
         console.log("Gelen cevap:", res);
 
         if (res.data.login) {
-          // ✅ TOKEN BURAYA EKLENDİ
+          
           localStorage.setItem("token", res.data.token);
           setRoleVar(res.data.role);
 

@@ -13,7 +13,7 @@ const LikedBooks = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get("http://localhost:3001/student/likes", {
-          withCredentials: true,  // sadece Authorization token değil, cookie için de gerekiyor
+          withCredentials: true,  
         });
         
         setBooks(res.data.likedBooks || []);

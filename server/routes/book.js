@@ -6,7 +6,7 @@ import { verifyAdmin, verifyUser } from './auth.js';
 
 const router = express.Router();
 
-// 📌 /book/add → Kitap ekleme (sadece admin)
+
 router.post('/add', verifyAdmin, async (req, res) => {
   try {
     const { name, author, imageUrl } = req.body;
@@ -18,7 +18,7 @@ router.post('/add', verifyAdmin, async (req, res) => {
   }
 });
 
-// 📌 /book → Tüm kitapları getir
+
 router.get('/books', async (req, res) => {
   try {
     const books = await Book.find();
@@ -28,7 +28,7 @@ router.get('/books', async (req, res) => {
   }
 });
 
-// 📌 /book/:id → Kitap detayları
+
 router.get('/:id', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// 📌 /book/:id → Kitap güncelle
+
 router.put('/:id', verifyAdmin, async (req, res) => {
   try {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -48,7 +48,7 @@ router.put('/:id', verifyAdmin, async (req, res) => {
   }
 });
 
-// 📌 /book/:id → Kitap sil
+
 router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
@@ -58,7 +58,7 @@ router.delete('/:id', verifyAdmin, async (req, res) => {
   }
 });
 
-// 📌 /book/:id/borrow → Ödünç alma
+
 router.post('/:id/borrow', verifyUser, async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -68,11 +68,11 @@ router.post('/:id/borrow', verifyUser, async (req, res) => {
       return res.status(400).json({ message: "Kitap zaten ödünç alınmış" });
     }
 
-    const roll = req.username; // token'dan gelen kullanıcı adı (öğrenci)
+    const roll = req.username;
 
     const now = new Date();
     const due = new Date(now);
-    due.setDate(now.getDate() + 7); // 7 gün
+    due.setDate(now.getDate() + 7); 
 
     book.status = "borrowed";
     book.borrowedBy = roll;
@@ -87,7 +87,7 @@ router.post('/:id/borrow', verifyUser, async (req, res) => {
   }
 });
 
-// 📌 /book/:id/return → İade etme
+
 router.post('/:id/return', verifyUser, async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -115,7 +115,7 @@ router.post('/:id/return', verifyUser, async (req, res) => {
   }
 });
 
-// 📌 /book/:id/status → Kitap durumu sorgula
+
 router.get('/:id/status', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -141,7 +141,7 @@ router.get('/:id/status', async (req, res) => {
   }
 });
 
-//kitap ortalama puan
+
 router.get('/:id/average-rating', async (req, res) => {
   const { id } = req.params;
 
@@ -164,7 +164,7 @@ router.get('/:id/average-rating', async (req, res) => {
       });
     }
 
-    // 🔥 Burada güvenli kontrol ekliyoruz
+
     if (count === 0) {
       return res.json({ averageRating: 0 });
     }
