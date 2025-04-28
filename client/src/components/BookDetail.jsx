@@ -4,10 +4,11 @@ import axios from "axios";
 import "../css/BookDetail.css";
 
 const BookDetails = () => {
-  const { id } = useParams(); // URL parametresinden kitap id'sini alıyoruz
+  const { id } = useParams();
   const [book, setBook] = useState(null);
   const [liked, setLiked] = useState(false);
   const [averageRating, setAverageRating] = useState(null);
+  const [hoveredStar, setHoveredStar] = useState(null); 
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -24,13 +25,18 @@ const BookDetails = () => {
         const response = await axios.get('http://localhost:3001/student/likes', {
           withCredentials: true,
         });
-        if (response.data.liked_books.includes(id)) {
+    
+        const likedBooks = response.data.likedBooks; // ✅ Düzeltildi
+    
+        if (Array.isArray(likedBooks) && likedBooks.some(book => book._id === id)) {
           setLiked(true);
         }
       } catch (error) {
         console.error("Beğeni durumu alınamadı:", error);
       }
     };
+    
+    
 
     const fetchAverageRating = async () => {
       try {
@@ -49,11 +55,9 @@ const BookDetails = () => {
   const handleLike = async () => {
     try {
       if (liked) {
-        // Beğeni geri alınırken
         await axios.post('http://localhost:3001/student/unlike', { bookId: id }, { withCredentials: true });
         setLiked(false);
       } else {
-        // Beğenildiğinde
         await axios.post('http://localhost:3001/student/like', { bookId: id }, { withCredentials: true });
         setLiked(true);
       }
@@ -91,11 +95,12 @@ const BookDetails = () => {
           <p>
             <strong>Durum:</strong> 
             {book.status === "available" ? (
-              <span style={{ color: "green" }}> Rafta</span>
+              <span style={{ color: "lightgreen" }}> Rafta</span>
             ) : (
-              <span style={{ color: "red" }}> Ödünç Alınmış</span>
+              <span style={{ color: "lightcoral" }}> Ödünç Alınmış</span>
             )}
           </p>
+
           <p>
             <strong>İade Tarihi:</strong>
             {book.status === "borrowed" ? (
@@ -109,16 +114,24 @@ const BookDetails = () => {
             {liked ? "Beğeniyi Geri Al" : "Beğen"}
           </button>
 
-          <div className="rating-buttons">
+          <div className="rating-stars">
             {[1, 2, 3, 4, 5].map((star) => (
-              <button key={star} onClick={() => handleRating(star)}>
-                {star} ⭐
-              </button>
+              <span
+                key={star}
+                className={`star ${hoveredStar >= star ? "hovered" : ""}`}
+                onMouseEnter={() => setHoveredStar(star)}
+                onMouseLeave={() => setHoveredStar(null)}
+                onClick={() => handleRating(star)}
+              >
+                ⭐
+              </span>
             ))}
           </div>
 
           {averageRating !== null && (
-            <p><strong>Ortalama Puan:</strong> {averageRating.toFixed(2)} / 5</p>
+            <p className="average-rating">
+              <strong>Ortalama Puan:</strong> {averageRating.toFixed(2)} / 5
+            </p>
           )}
         </div>
       </div>

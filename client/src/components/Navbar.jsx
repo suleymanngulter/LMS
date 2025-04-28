@@ -15,7 +15,7 @@ const Navbar = ({role}) => {
               
             
 
-            <buton className="navbar-link"style={{background:'none',border:'none' }}
+            <button className="navbar-link"style={{background:'none',border:'none' }}
             onClick={()=>{
               const token = localStorage.getItem("token");
               if (token) {
@@ -27,7 +27,7 @@ const Navbar = ({role}) => {
             }} 
             
             >Kitap Öneri
-            </buton>
+            </button>
             </>
             }
 

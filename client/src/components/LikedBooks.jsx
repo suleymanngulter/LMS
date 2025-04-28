@@ -13,10 +13,9 @@ const LikedBooks = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get("http://localhost:3001/student/likes", {
-          headers: {
-            Authorization: `Bearer ${token}`,  // ✅ Düzeltildi
-          },
+          withCredentials: true,  // sadece Authorization token değil, cookie için de gerekiyor
         });
+        
         setBooks(res.data.likedBooks || []);
       } catch (err) {
         console.error("Beğenilen kitaplar alınamadı:", err);

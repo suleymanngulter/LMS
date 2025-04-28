@@ -1,99 +1,105 @@
 .book-details-page {
-    background-color: #e6f0ff;
-    min-height: 100vh;
-    padding: 40px;
-    color: #003366;
-  }
-  
-  .book-details-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 36px;
-    font-weight: bold;
-  }
-  
-  .book-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    background: linear-gradient(135deg, #1c1c3c, #2a4f7f);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
-    max-width: 1100px;
-    margin: 0 auto;
-    color: white;
-  }
-  
-  .book-image {
-    width: 220px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  .book-text {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 700px;
-  }
-  
-  .book-name {
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .book-author {
-    font-size: 22px;
-    font-style: italic;
-  }
-  
-  .book-description {
-    font-size: 18px;
-    line-height: 1.6;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 10px;
-  }
-  
-  .like-button {
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .like-button.liked {
-    background-color: #cc0000; /* Beğenildiyse kırmızı */
-  }
-  
-  .like-button:hover {
-    background-color: #005fa3;
-  }
-  
-  .rating-buttons {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .rating-buttons button {
-    background-color: #ffcc00;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .rating-buttons button:hover {
-    background-color: #e6b800;
-  }
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  padding: 40px;
+  color: #ffffff;
+}
+
+.book-details-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.book-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-image {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.book-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+
+.book-name {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.book-author {
+  font-size: 24px;
+  font-style: italic;
+  color: #cccccc;
+}
+
+.book-description {
+  font-size: 18px;
+  line-height: 1.8;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.like-button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-top: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.like-button.liked {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+
+.rating-stars {
+  margin-top: 20px;
+  font-size: 32px;
+  display: flex;
+  gap: 12px;
+}
+
+.star {
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.star.hovered {
+  color: gold;
+  transform: scale(1.2);
+}
+
+.average-rating {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffcc00;
+}

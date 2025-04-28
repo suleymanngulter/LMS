@@ -10,28 +10,28 @@ const EditBook = () => {
     const {id} = useParams()
 
     useEffect(() => {
-        axios.get('http://localhost:3001/book/book/'+id)
-        .then(res => { 
-            setName(res.data.name)
-            setAuthor(res.data.author)
-            setImageUrl(res.data.imageUrl)
+      axios.get(`http://localhost:3001/book/${id}`)
+        .then(res => {
+          setName(res.data.name);
+          setAuthor(res.data.author);
+          setImageUrl(res.data.imageUrl);
         })
-        .catch(err => console.log(err))
-    })
-
+        .catch(err => console.log(err));
+    }, [id]); // Burada id'yi bağımlılık olarak ekliyoruz
+  
+    // Formu submit ederken yapılacak işlemi handleSubmit ile ayarlıyoruz
     const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.put('http://localhost:3001/book/book/'+id, {name, author, imageUrl})
-        .then(res => { 
-            if(res.data.updated) {
-                navigate('/books')
-            }
-            else {
-                console.log(res)
-            }
+      e.preventDefault();
+  
+      // PUT isteğiyle kitabı güncelliyoruz
+      axios.put(`http://localhost:3001/book/${id}`, { name, author, imageUrl })
+        .then(res => {
+          if (res.data.updated) {
+            navigate('/books'); // Güncelleme başarılıysa kitaplar sayfasına yönlendir
+          }
         })
-        .catch(err => console.log(err))
-      }
+        .catch(err => console.log(err));
+    };
 
   return (
     <div className="student-form-container">

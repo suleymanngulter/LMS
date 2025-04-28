@@ -1,4 +1,6 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import { Student } from '../models/Student.js';
 import { Book } from '../models/Book.js';
 import { verifyAdmin, verifyUser } from './auth.js';
 
@@ -138,5 +140,43 @@ router.get('/:id/status', async (req, res) => {
     return res.status(500).json({ error: "Durum sorgulanamadı", details: err.message });
   }
 });
+
+//kitap ortalama puan
+router.get('/:id/average-rating', async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Geçersiz kitap ID" });
+  }
+
+  try {
+    const students = await Student.find({ [`ratings.${id}`]: { $exists: true } });
+
+    let totalRating = 0;
+    let count = 0;
+
+    if (students && students.length > 0) {
+      students.forEach(student => {
+        if (student.ratings && typeof student.ratings[id] === "number") {
+          totalRating += student.ratings[id];
+          count++;
+        }
+      });
+    }
+
+    // 🔥 Burada güvenli kontrol ekliyoruz
+    if (count === 0) {
+      return res.json({ averageRating: 0 });
+    }
+
+    const averageRating = totalRating / count;
+    return res.json({ averageRating: parseFloat(averageRating.toFixed(2)) });
+
+  } catch (err) {
+    console.error('Ortalama puan alınırken sunucu hatası:', err);
+    return res.status(500).json({ message: "Sunucu hatası", error: err.message });
+  }
+});
+
 
 export { router as bookRouter };
